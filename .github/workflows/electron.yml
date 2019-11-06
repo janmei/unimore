@@ -33,11 +33,18 @@ jobs:
         run: ls ./dist
       - uses: lucyio/upload-to-release@master
         with:
-          name: lucyio/electron
-          path: ./dist
-          action: unpublished
-          release_id: 0.x.x
-          release-repo: lucyio/electron
+          # repo username/name
+            name: janmei/unimore
+            # directory of all your files you want to upload (not recursive only flat, directories are skipped)
+            path: ./dist
+            # can be enum of published, unpublished, created, prereleased
+            action: unpublished
+            # release tag
+            release_id: 0.5.8
+            # release repository name
+            release-repo: janmei/unimore
+            # secret for your github token to use
+            repo-token: ${{ secrets.github_token_release }}
   # build_on_win:
   #   runs-on: windows-2016
   #   steps:
