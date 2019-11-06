@@ -1,8 +1,9 @@
-name: CIon:
+name: CI
+on:
   push:
     branches:
       - master
-      jobs:
+jobs:
   build_on_mac:
     runs-on: macOS-latest
     steps:
