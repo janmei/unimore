@@ -19,7 +19,7 @@ jobs:
         env:
           ELECTRON: true
           APP_VERSION_NUMBER: 0.5.9
-        run: npm dist
+        run: npm run dist
       # - name: Build Electron
       #   env:
       #     ELECTRON: true
