@@ -7,44 +7,43 @@ jobs:
   build_on_mac:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@master
-      with:
-        ref: master
-    - uses: actions/setup-node@master
-      with:
-        node-version: 10.16
-    - name: Install dependencies
-      run: yarn install
-    - name: Build on MacOS
-      env:
-        ELECTRON: true
-        APP_VERSION_NUMBER: 0.5.9
-      run: yarn build
-    - name: Build Electron
-      env:
-        ELECTRON: true
-        APP_VERSION_NUMBER: 0.5.9
-      run: yarn electron:buildUnix
-    - name: see directory
-      run: ls
-    - name: check env
-      run: echo $ELECTRON $FEATHERS_URL
-    - name: see directory in dist
-      run: ls ./dist
-    - uses: lucyio/upload-to-release@master
-      with:
-        name: lucyio/electron
-        path: ./dist
-        action: unpublished
-        release_id: 0.x.x
-        release-repo: lucyio/electron
-  
+      - uses: actions/checkout@master
+        with:
+          ref: master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16
+      - name: Install dependencies
+        run: npm install
+      - name: Build on MacOS
+        env:
+          ELECTRON: true
+          APP_VERSION_NUMBER: 0.5.9
+        run: npm dist
+      # - name: Build Electron
+      #   env:
+      #     ELECTRON: true
+      #     APP_VERSION_NUMBER: 0.5.9
+      #   run: npm electron:buildUnix
+      - name: see directory
+        run: ls
+      - name: check env
+        run: echo $ELECTRON $FEATHERS_URL
+      - name: see directory in dist
+        run: ls ./dist
+      - uses: lucyio/upload-to-release@master
+        with:
+          name: lucyio/electron
+          path: ./dist
+          action: unpublished
+          release_id: 0.x.x
+          release-repo: lucyio/electron
   # build_on_win:
   #   runs-on: windows-2016
   #   steps:
   #   - uses: actions/checkout@master
   #     with:
-  #       ref: feature/github-actions        
+  #       ref: feature/github-actions
   #   - uses: actions/setup-node@master
   #     with:
   #       node-version: 10.16
