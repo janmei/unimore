@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - master
+env:
+  RELEASE_ID: 1.0.1
 jobs:
   build_on_mac:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@master
         with:
@@ -40,17 +42,17 @@ jobs:
           # can be enum of published, unpublished, created, prereleased
           action: published
           # release tag
-          release_id: 1.0.0
+          release_id: $RELEASE_ID
           # release repository name
           release-repo: janmei/unimore
           # secret for your github token to use
           repo-token: ${{ secrets.github_token_release }}
   build_on_win:
-    runs-on: windows-2016
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@master
         with:
-          ref: feature/github-actions
+          ref: master
       - uses: actions/setup-node@master
         with:
           node-version: 10.16
@@ -92,7 +94,7 @@ jobs:
           # can be enum of published, unpublished, created, prereleased
           action: published
           # release tag
-          release_id: 1.0.0
+          release_id: $RELEASE_ID
           # release repository name
           release-repo: janmei/unimore
           # secret for your github token to use
