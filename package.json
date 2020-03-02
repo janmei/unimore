@@ -1,18 +1,20 @@
 {
-  "name": "app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "electron": "^7.0.0"
-  },
-  "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"dependencies": {
+		"express": "^4.17.1"
+	},
+	"devDependencies": {
+		"electron": "^7.0.0",
+		"electron-builder": "^21.2.0"
+	},
+	"scripts": {
+		"start": "electron .",
+		"pack": "electron-builder --dir",
+		"dist": "electron-builder"
+	},
+	"author": "",
+	"license": "ISC"
 }
