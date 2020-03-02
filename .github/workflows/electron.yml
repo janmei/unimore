@@ -1,12 +1,8 @@
-# name of your github action
 name: CI
-# this will help you specify where to run
 on:
   push:
     branches:
-      # this will run on the electron branch
       - master
-# this is where the magic happens, each job happens in parallel btw
 jobs:
   build_on_mac:
     runs-on: macOS-latest
@@ -17,16 +13,80 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 10.16
+      - name: Install dependencies
+        run: npm install
+      - name: Build on MacOS
+        env:
+          ELECTRON: true
+          APP_VERSION_NUMBER: 0.5.9
+        run: npm run dist
+      # - name: Build Electron
+      #   env:
+      #     ELECTRON: true
+      #     APP_VERSION_NUMBER: 0.5.9
+      #   run: npm electron:buildUnix
       - name: see directory
         run: ls
-  build_on_win:
-    runs-on: windows-2016
-    steps:
-      - uses: actions/checkout@master
+      - name: check env
+        run: echo $ELECTRON $FEATHERS_URL
+      - name: see directory in dist
+        run: ls ./dist
+      - uses: lucyio/upload-to-release@master
         with:
-          ref: master
-      - uses: actions/setup-node@master
-        with:
-          node-version: 10.16
-      - name: see directory
-        run: ls
+          # repo username/name
+            name: janmei/unimore
+            # directory of all your files you want to upload (not recursive only flat, directories are skipped)
+            path: ./dist
+            # can be enum of published, unpublished, created, prereleased
+            action: unpublished
+            # release tag
+            release_id: 0.5.8
+            # release repository name
+            release-repo: janmei/unimore
+            # secret for your github token to use
+            repo-token: ${{ secrets.github_token_release }}
+  # build_on_win:
+  #   runs-on: windows-2016
+  #   steps:
+  #   - uses: actions/checkout@master
+  #     with:
+  #       ref: feature/github-actions
+  #   - uses: actions/setup-node@master
+  #     with:
+  #       node-version: 10.16
+  #   - name: install node tools
+  #     run: npm install --global --production windows-build-tools@4.0.0
+  #   - name: install node-gyp
+  #     run: npm install --global node-gyp@latest
+  #   - name: Set node config to use python2.7
+  #     run: npm config set python python2.7
+  #   - name: Set node config to set msvs_version to 2015
+  #     run: npm config set msvs_version 2015
+  #   - name: Work around for Windows Server 2019
+  #     run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+  #   - name: Install dependencies
+  #     run: yarn install
+  #   - name: check env
+  #     env:
+  #       ELECTRON: true
+  #       APP_VERSION_NUMBER: 0.5.9
+  #     run: set
+  #   - name: Build on Windows
+  #     env:
+  #       ELECTRON: true
+  #       APP_VERSION_NUMBER: 0.5.9
+  #     run: yarn build
+  #   - name: Build Electron
+  #     env:
+  #       ELECTRON: true
+  #       APP_VERSION_NUMBER: 0.5.9
+  #     run: yarn electron:buildWin
+  #   - name: see directory
+  #     run: ls ./electron_dist/squirrel-windows
+  #   - uses: lucyio/upload-to-release@master
+  #     with:
+  #       name: lucyio/electron
+  #       path: ./electron_dist/squirrel-windows
+  #       action: unpublished
+  #       release_id: 0.5.9
+  #       release-repo: lucyio/electron

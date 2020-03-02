@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"name": "app",
 	"version": "1.0.0",
 	"description": "",
@@ -17,4 +18,24 @@
 	},
 	"author": "",
 	"license": "ISC"
+=======
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.1.0",
+    "electron": "^7.1.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC"
+>>>>>>> 8f918b052dd7de0f5a57c9d18164d5eed20e819f
 }
